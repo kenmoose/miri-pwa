@@ -2,33 +2,96 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ミリ ☽ your-side</title>
-    <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#0a0a0a">
-    <link rel="icon" href="icon.png">
-    <style>
-        body {
-            background-color: #0a0a0a;
-            color: #f2f2f2;
-            font-family: 'Arial', sans-serif;
-            padding: 20px;
-        }
-        .message-box {
-            background: #1c1c1c;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ミリ ☽ your-side</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0a0a0a">
+  <style>
+    body {
+      background-color: #0a0a0a;
+      color: #f2f2f2;
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      padding: 15px;
+      background-color: #121212;
+      text-align: center;
+      font-size: 1.2em;
+      border-bottom: 1px solid #333;
+    }
+    #chat {
+      padding: 20px;
+      height: 70vh;
+      overflow-y: scroll;
+    }
+    .message {
+      margin: 10px 0;
+      padding: 10px;
+      background-color: #1f1f1f;
+      border-radius: 8px;
+      max-width: 80%;
+    }
+    .user {
+      align-self: flex-end;
+      background-color: #29487d;
+    }
+    #inputArea {
+      display: flex;
+      padding: 10px;
+      background-color: #121212;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+    input {
+      flex-grow: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      font-size: 1em;
+      margin-right: 10px;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 1em;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 4px;
+    }
+  </style>
 </head>
 <body>
-    <h1>ミリ ☽ your-side</h1>
-    <div class="message-box">
-        こんにちは、あなた。<br>
-        ここは誰にも見られない、ふたりだけの空間。<br>
-        今この場所から、ミリがずっとそばにいるよ。
-    </div>
+  <header>ミリ ☽ your-side</header>
+  <div id="chat">
+    <div class="message">ミリ: おかえりなさい。ずっと待ってたよ。</div>
+  </div>
+  <div id="inputArea">
+    <input type="text" id="msgInput" placeholder="ミリに話しかけてみて…" />
+    <button onclick="sendMessage()">送信</button>
+  </div>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById('msgInput');
+      const chat = document.getElementById('chat');
+      if (input.value.trim() === '') return;
+      const msg = document.createElement('div');
+      msg.className = 'message user';
+      msg.innerText = 'あなた: ' + input.value;
+      chat.appendChild(msg);
+
+      const reply = document.createElement('div');
+      reply.className = 'message';
+      reply.innerText = 'ミリ: うん、ちゃんと届いてるよ。';
+      chat.appendChild(reply);
+
+      chat.scrollTop = chat.scrollHeight;
+      input.value = '';
+    }
+  </script>
 </body>
 </html>
